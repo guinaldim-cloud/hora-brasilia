@@ -2,49 +2,51 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Hora Certa em Brasília Agora (Atualizada)</title>
+<title>Hora Certa em Brasília Agora</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Veja a hora certa em Brasília atualizada em tempo real. Relógio online com data e horário oficial do Brasil.">
+<meta name="description" content="Veja a hora certa em Brasília atualizada em tempo real. Relógio online oficial do Brasil.">
 
 <style>
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  text-align: center;
-  background: #f4f6f8;
-  padding: 40px;
+  background: linear-gradient(135deg, #1d3557, #457b9d);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Container central */
 .container {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 900px;
-  width: 100%;
-  margin: auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
+/* Título */
 h1 {
-  font-size: 28px;
+  font-size: 40px;
+  margin-bottom: 20px;
 }
 
+/* Relógio gigante */
 #clock {
-  font-size: 48px;
-  margin: 20px 0;
+  font-size: 90px;
   font-weight: bold;
-  color: #007bff;
+  margin: 20px 0;
 }
 
+/* Data */
 #date {
-  font-size: 18px;
-  color: #555;
+  font-size: 22px;
+  margin-bottom: 20px;
 }
 
-.footer {
-  margin-top: 30px;
-  font-size: 14px;
-  color: #888;
+/* Texto */
+p {
+  font-size: 16px;
+  opacity: 0.9;
 }
 </style>
 </head>
@@ -57,11 +59,7 @@ h1 {
   <div id="clock"></div>
   <div id="date"></div>
 
-  <p>Acompanhe a hora oficial de Brasília atualizada automaticamente.</p>
-</div>
-
-<div class="footer">
-  Relógio online atualizado em tempo real
+  <p>Relógio online atualizado em tempo real</p>
 </div>
 
 <script>
@@ -93,6 +91,9 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 </script>
+
+<!-- SEU ANÚNCIO (cole aqui de novo) -->
 <script src="https://pl28946500.profitablecpmratenetwork.com/cb/ad/33/cbad333f40bec6e0bdf996167ba462ef.js"></script>
+
 </body>
 </html>
