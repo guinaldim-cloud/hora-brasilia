@@ -6,8 +6,8 @@
 
 <meta name="google-site-verification" content="SEU_CODIGO_AQUI">
 
-<title>Hora em Brasília | Relógio Mundial, Cronômetro e Temporizador</title>
-<meta name="description" content="Veja a hora em Brasília e horários do mundo com relógio online, cronômetro e temporizador.">
+<title>Hora em Brasília | Relógio Mundial</title>
+<meta name="description" content="Veja a hora em Brasília e horários do mundo com relógio online.">
 
 <style>
 body {
@@ -48,8 +48,10 @@ body {
   overflow-y: auto;
 }
 
+/* 👇 AQUI É O AJUSTE */
 .screen {
   display: none;
+  margin-top: 80px; /* empurra tudo pra baixo */
 }
 
 .active {
@@ -59,7 +61,7 @@ body {
 /* RELÓGIO */
 #clock {
   font-size: 90px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 #date {
@@ -115,7 +117,6 @@ button {
 
 <div class="content">
 
-<!-- RELÓGIO -->
 <div id="clockScreen" class="screen active">
   <h1>Hora em Brasília</h1>
   <div id="clock">00:00:00</div>
@@ -132,7 +133,6 @@ button {
   </div>
 </div>
 
-<!-- CRONÔMETRO -->
 <div id="stopwatchScreen" class="screen">
   <h1>Cronômetro</h1>
   <div id="stopwatch">00:00:00</div>
@@ -141,7 +141,6 @@ button {
   <button onclick="resetStopwatch()">Resetar</button>
 </div>
 
-<!-- TEMPORIZADOR -->
 <div id="timerScreen" class="screen">
   <h1>Temporizador</h1>
   <input type="number" id="minutes" placeholder="Minutos">
@@ -162,7 +161,6 @@ function showScreen(screenId) {
   document.getElementById(screenId).classList.add('active');
 }
 
-/* RELÓGIO + MUNDO */
 function updateClock() {
   const now = new Date();
 
