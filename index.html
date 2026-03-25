@@ -8,119 +8,92 @@
   <meta name="google-site-verification" content="SEU_CODIGO_AQUI">
 
   <!-- SEO -->
-  <title>Hora em Brasília Agora (Atualizada) | Relógio Online do Brasil</title>
-  <meta name="description" content="Veja a hora em Brasília agora com relógio online atualizado em tempo real. Horário oficial do Brasil com precisão.">
-  <meta name="keywords" content="hora em Brasília agora, horário de Brasília, relógio online Brasil, que horas são no Brasil">
-
-  <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Hora em Brasília Agora (Atualizada) | Relógio Online</title>
+  <meta name="description" content="Veja a hora em Brasília agora com relógio online simples e rápido. Horário oficial do Brasil atualizado em tempo real.">
 
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
+      background: #ffffff;
+      color: #111;
       text-align: center;
-    }
-
-    header {
+      margin: 0;
       padding: 20px;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 26px;
+      margin-top: 20px;
     }
 
     #clock {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 70px;
+      font-size: 64px;
+      font-weight: bold;
       margin: 20px 0;
     }
 
     #date {
-      font-size: 20px;
+      font-size: 18px;
+      color: #555;
       margin-bottom: 30px;
     }
 
-    .box {
-      background: rgba(255,255,255,0.1);
-      margin: 20px;
-      padding: 20px;
-      border-radius: 12px;
+    .content {
+      max-width: 700px;
+      margin: auto;
+      text-align: left;
     }
 
     h2 {
+      font-size: 20px;
       margin-top: 30px;
-      font-size: 22px;
     }
 
     p {
-      max-width: 700px;
-      margin: 10px auto;
       line-height: 1.6;
-      font-size: 16px;
-    }
-
-    footer {
-      margin-top: 40px;
-      padding: 20px;
-      font-size: 14px;
-      opacity: 0.8;
+      font-size: 15px;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Hora em Brasília Agora</h1>
-  <div id="clock">00:00:00</div>
-  <div id="date"></div>
-</header>
+<h1>Hora em Brasília Agora</h1>
 
-<div class="box">
+<div id="clock">00:00:00</div>
+<div id="date"></div>
+
+<div class="content">
   <h2>Horário de Brasília em tempo real</h2>
   <p>
-    Veja a hora exata em Brasília atualizada automaticamente. Este relógio online mostra o horário oficial do Brasil com precisão em tempo real.
+    Veja a hora exata em Brasília atualizada automaticamente. Nosso relógio online mostra o horário oficial do Brasil com precisão.
   </p>
 
   <h2>Que horas são no Brasil agora?</h2>
   <p>
-    Se você precisa saber que horas são no Brasil neste momento, utilize nosso relógio online. Ideal para trabalho, estudos, reuniões ou uso diário.
+    Confira agora o horário de Brasília com atualização em tempo real. Ideal para quem precisa saber a hora exata no Brasil.
   </p>
 
-  <h2>Fuso horário de Brasília</h2>
+  <h2>Sobre o fuso horário</h2>
   <p>
-    O horário de Brasília (BRT) é o principal fuso horário do Brasil. Nosso sistema mantém a hora sempre sincronizada para garantir exatidão.
+    O horário de Brasília (BRT) é o principal fuso horário do Brasil. Este relógio mantém a hora sempre atualizada.
   </p>
 </div>
-
-<footer>
-  Relógio online | Hora em Brasília atualizada 24h
-</footer>
 
 <script>
   function updateClock() {
     const now = new Date();
 
-    const optionsTime = {
-      timeZone: "America/Sao_Paulo",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit"
-    };
+    const time = now.toLocaleTimeString("pt-BR", {
+      timeZone: "America/Sao_Paulo"
+    });
 
-    const optionsDate = {
+    const date = now.toLocaleDateString("pt-BR", {
       timeZone: "America/Sao_Paulo",
       day: "2-digit",
       month: "long",
       year: "numeric"
-    };
-
-    const time = new Intl.DateTimeFormat("pt-BR", optionsTime).format(now);
-    const date = new Intl.DateTimeFormat("pt-BR", optionsDate).format(now);
+    });
 
     document.getElementById("clock").textContent = time;
     document.getElementById("date").textContent = date;
