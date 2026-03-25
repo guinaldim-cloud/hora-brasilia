@@ -1,99 +1,212 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- VERIFICAÇÃO GOOGLE -->
-  <meta name="google-site-verification" content="SEU_CODIGO_AQUI">
+<meta name="google-site-verification" content="SEU_CODIGO_AQUI">
 
-  <!-- SEO -->
-  <title>Hora em Brasília | Relógio Online Grande</title>
-  <meta name="description" content="Veja a hora em Brasília com relógio online grande, atualizado em tempo real.">
+<title>Hora em Brasília | Relógio, Cronômetro e Temporizador</title>
+<meta name="description" content="Relógio online com hora em Brasília, cronômetro e temporizador. Tudo em um só lugar.">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1f3a; /* azul escuro */
-      color: white;
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #0b1f3a;
+  color: white;
+}
 
-    .container {
-      height: 75vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+/* MENU */
+.sidebar {
+  width: 220px;
+  background: #08172b;
+  height: 100vh;
+  padding-top: 20px;
+}
 
-    h1 {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: white;
-    }
+.sidebar h2 {
+  text-align: center;
+}
 
-    #clock {
-      font-size: 120px;
-      font-weight: bold;
-      letter-spacing: 5px;
-      color: #ffffff;
-    }
+.menu-item {
+  padding: 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #0b1f3a;
+}
 
-    #date {
-      font-size: 32px;
-      margin-top: 20px;
-      color: #e0e0e0;
-    }
+.menu-item:hover {
+  background: #0b1f3a;
+}
 
-    /* Área de anúncio */
-    .ad-area {
-      height: 120px;
-      background: #08172b;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #aaa;
-      font-size: 14px;
-    }
-  </style>
+/* CONTEÚDO */
+.content {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+}
+
+.screen {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+/* RELÓGIO */
+#clock {
+  font-size: 100px;
+  margin-top: 50px;
+}
+
+#date {
+  font-size: 28px;
+}
+
+/* CRONÔMETRO */
+#stopwatch {
+  font-size: 60px;
+  margin: 30px;
+}
+
+/* BOTÕES */
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ANÚNCIO */
+.ad {
+  position: fixed;
+  bottom: 0;
+  left: 220px;
+  right: 0;
+  height: 100px;
+  background: #111;
+  text-align: center;
+  line-height: 100px;
+  color: #aaa;
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>Hora em Brasília</h1>
-  <div id="clock">00:00:00</div>
-  <div id="date"></div>
+<div class="sidebar">
+  <h2>Ferramentas</h2>
+  <div class="menu-item" onclick="showScreen('clockScreen')">Relógio</div>
+  <div class="menu-item" onclick="showScreen('stopwatchScreen')">Cronômetro</div>
+  <div class="menu-item" onclick="showScreen('timerScreen')">Temporizador</div>
 </div>
 
-<div class="ad-area">
+<div class="content">
+
+  <!-- RELÓGIO -->
+  <div id="clockScreen" class="screen active">
+    <h1>Hora em Brasília</h1>
+    <div id="clock">00:00:00</div>
+    <div id="date"></div>
+  </div>
+
+  <!-- CRONÔMETRO -->
+  <div id="stopwatchScreen" class="screen">
+    <h1>Cronômetro</h1>
+    <div id="stopwatch">00:00:00</div>
+    <button onclick="startStopwatch()">Iniciar</button>
+    <button onclick="pauseStopwatch()">Pausar</button>
+    <button onclick="resetStopwatch()">Resetar</button>
+  </div>
+
+  <!-- TEMPORIZADOR -->
+  <div id="timerScreen" class="screen">
+    <h1>Temporizador</h1>
+    <input type="number" id="minutes" placeholder="Minutos">
+    <br><br>
+    <button onclick="startTimer()">Iniciar</button>
+    <div id="timerDisplay"></div>
+  </div>
+
+</div>
+
+<div class="ad">
   Espaço para anúncio
 </div>
 
 <script>
-  function updateClock() {
-    const now = new Date();
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+}
 
-    const time = now.toLocaleTimeString("pt-BR", {
-      timeZone: "America/Sao_Paulo"
-    });
+/* RELÓGIO */
+function updateClock() {
+  const now = new Date();
 
-    const date = now.toLocaleDateString("pt-BR", {
-      timeZone: "America/Sao_Paulo",
-      weekday: "long",
-      day: "2-digit",
-      month: "long",
-      year: "numeric"
-    });
+  const time = now.toLocaleTimeString("pt-BR", {
+    timeZone: "America/Sao_Paulo"
+  });
 
-    document.getElementById("clock").textContent = time;
-    document.getElementById("date").textContent = date;
-  }
+  const date = now.toLocaleDateString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
 
-  setInterval(updateClock, 1000);
-  updateClock();
+  document.getElementById("clock").textContent = time;
+  document.getElementById("date").textContent = date;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+/* CRONÔMETRO */
+let swTime = 0;
+let swInterval;
+
+function startStopwatch() {
+  swInterval = setInterval(() => {
+    swTime++;
+    document.getElementById("stopwatch").textContent =
+      new Date(swTime * 1000).toISOString().substr(11, 8);
+  }, 1000);
+}
+
+function pauseStopwatch() {
+  clearInterval(swInterval);
+}
+
+function resetStopwatch() {
+  clearInterval(swInterval);
+  swTime = 0;
+  document.getElementById("stopwatch").textContent = "00:00:00";
+}
+
+/* TEMPORIZADOR */
+function startTimer() {
+  let minutes = document.getElementById("minutes").value;
+  let time = minutes * 60;
+
+  let interval = setInterval(() => {
+    if (time <= 0) {
+      clearInterval(interval);
+      alert("Tempo acabou!");
+    }
+
+    let min = Math.floor(time / 60);
+    let sec = time % 60;
+
+    document.getElementById("timerDisplay").textContent =
+      min + ":" + (sec < 10 ? "0" + sec : sec);
+
+    time--;
+  }, 1000);
+}
 </script>
 
 </body>
