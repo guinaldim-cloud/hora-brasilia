@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Hora Atual no Mundo (Relógio Online em Tempo Real)</title>
-  <meta name="description" content="Veja a hora exata em várias cidades do mundo com relógio grande e atualização em tempo real.">
+  <meta name="description" content="Veja a hora exata em várias cidades do mundo com relógio grande e atualizado em tempo real.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -17,8 +17,8 @@
     }
 
     h1 {
-      margin-top: 20px;
       font-size: 28px;
+      margin-top: 20px;
     }
 
     #clock {
@@ -36,18 +36,17 @@
       margin-top: 30px;
     }
 
-    #menu a {
-      display: inline-block;
+    #menu button {
       margin: 5px;
-      padding: 8px 12px;
+      padding: 10px 14px;
+      border: none;
       background: #0ea5e9;
       color: #000;
       border-radius: 6px;
-      text-decoration: none;
-      font-size: 14px;
+      cursor: pointer;
     }
 
-    #menu a:hover {
+    #menu button:hover {
       background: #38bdf8;
     }
 
@@ -86,21 +85,24 @@
 </div>
 
 <footer>
-  <p>
-    <a href="#">Privacidade</a> |
-    <a href="#">Termos</a> |
-    <a href="#">Contato</a>
-  </p>
+  <p>Portal de horários online</p>
 </footer>
 
 <script>
 const cidades = [
-  { nome: "Brasília", timezone: "America/Sao_Paulo" },
-  { nome: "São Paulo", timezone: "America/Sao_Paulo" },
-  { nome: "Rio de Janeiro", timezone: "America/Sao_Paulo" },
-  { nome: "New York", timezone: "America/New_York" },
-  { nome: "Londres", timezone: "Europe/London" },
-  { nome: "Tóquio", timezone: "Asia/Tokyo" }
+  { nome: "Brasília", tz: "America/Sao_Paulo" },
+  { nome: "São Paulo", tz: "America/Sao_Paulo" },
+  { nome: "Rio de Janeiro", tz: "America/Sao_Paulo" },
+  { nome: "New York", tz: "America/New_York" },
+  { nome: "Los Angeles", tz: "America/Los_Angeles" },
+  { nome: "Londres", tz: "Europe/London" },
+  { nome: "Paris", tz: "Europe/Paris" },
+  { nome: "Berlim", tz: "Europe/Berlin" },
+  { nome: "Lisboa", tz: "Europe/Lisbon" },
+  { nome: "Dubai", tz: "Asia/Dubai" },
+  { nome: "Tóquio", tz: "Asia/Tokyo" },
+  { nome: "Pequim", tz: "Asia/Shanghai" },
+  { nome: "Sydney", tz: "Australia/Sydney" }
 ];
 
 let cidadeAtual = cidades[0];
@@ -108,37 +110,37 @@ let cidadeAtual = cidades[0];
 function criarMenu() {
   const menu = document.getElementById("menu");
 
-  cidades.forEach((cidade, index) => {
-    const link = document.createElement("a");
-    link.textContent = cidade.nome;
+  cidades.forEach(cidade => {
+    const btn = document.createElement("button");
+    btn.textContent = cidade.nome;
 
-    link.onclick = () => {
+    btn.onclick = () => {
       cidadeAtual = cidade;
       document.getElementById("titulo").textContent =
         "Hora em " + cidade.nome + " Agora";
     };
 
-    menu.appendChild(link);
+    menu.appendChild(btn);
   });
 }
 
 function atualizarRelogio() {
   const now = new Date();
 
-  const time = now.toLocaleTimeString('pt-BR', {
-    timeZone: cidadeAtual.timezone
+  const time = now.toLocaleTimeString("pt-BR", {
+    timeZone: cidadeAtual.tz
   });
 
-  const date = now.toLocaleDateString('pt-BR', {
-    timeZone: cidadeAtual.timezone,
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
+  const date = now.toLocaleDateString("pt-BR", {
+    timeZone: cidadeAtual.tz,
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
   });
 
-  document.getElementById('clock').textContent = time;
-  document.getElementById('date').textContent = date;
+  document.getElementById("clock").textContent = time;
+  document.getElementById("date").textContent = date;
 }
 
 setInterval(atualizarRelogio, 1000);
