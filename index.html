@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Hora em Brasília Agora (Relógio Online em Tempo Real)</title>
-  <meta name="description" content="Veja a hora exata em Brasília com relógio grande e atualização em tempo real. Simples, rápido e preciso.">
+  <title>Hora Atual no Mundo (Relógio Online em Tempo Real)</title>
+  <meta name="description" content="Veja a hora exata em várias cidades do mundo com relógio grande e atualização em tempo real.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -12,43 +12,61 @@
       font-family: Arial, sans-serif;
       background: #020617;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       text-align: center;
+      padding: 20px;
     }
 
     h1 {
+      margin-top: 20px;
       font-size: 28px;
-      margin-bottom: 10px;
-      opacity: 0.8;
     }
 
     #clock {
-      font-size: 110px;
+      font-size: 90px;
       font-weight: bold;
-      letter-spacing: 4px;
+      margin: 20px 0;
     }
 
     #date {
-      margin-top: 10px;
       font-size: 20px;
-      opacity: 0.7;
+      opacity: 0.8;
+    }
+
+    #menu {
+      margin-top: 30px;
+    }
+
+    #menu a {
+      display: inline-block;
+      margin: 5px;
+      padding: 8px 12px;
+      background: #0ea5e9;
+      color: #000;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    #menu a:hover {
+      background: #38bdf8;
     }
 
     .info {
       max-width: 600px;
-      margin-top: 40px;
-      font-size: 16px;
+      margin: 40px auto;
       opacity: 0.8;
       line-height: 1.5;
     }
 
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+
     @media (max-width: 600px) {
       #clock {
-        font-size: 60px;
+        font-size: 55px;
       }
     }
   </style>
@@ -56,26 +74,63 @@
 
 <body>
 
-<h1>Hora em Brasília Agora</h1>
+<h1 id="titulo">Hora em Brasília Agora</h1>
 
 <div id="clock">--:--:--</div>
 <div id="date"></div>
 
+<div id="menu"></div>
+
 <div class="info">
-  A hora atual em Brasília (Brasil) é atualizada automaticamente em tempo real,
-  com base no horário oficial (UTC -3).
+  Veja a hora exata atualizada em tempo real em várias cidades do mundo.
 </div>
 
+<footer>
+  <p>
+    <a href="#">Privacidade</a> |
+    <a href="#">Termos</a> |
+    <a href="#">Contato</a>
+  </p>
+</footer>
+
 <script>
-function updateClock() {
+const cidades = [
+  { nome: "Brasília", timezone: "America/Sao_Paulo" },
+  { nome: "São Paulo", timezone: "America/Sao_Paulo" },
+  { nome: "Rio de Janeiro", timezone: "America/Sao_Paulo" },
+  { nome: "New York", timezone: "America/New_York" },
+  { nome: "Londres", timezone: "Europe/London" },
+  { nome: "Tóquio", timezone: "Asia/Tokyo" }
+];
+
+let cidadeAtual = cidades[0];
+
+function criarMenu() {
+  const menu = document.getElementById("menu");
+
+  cidades.forEach((cidade, index) => {
+    const link = document.createElement("a");
+    link.textContent = cidade.nome;
+
+    link.onclick = () => {
+      cidadeAtual = cidade;
+      document.getElementById("titulo").textContent =
+        "Hora em " + cidade.nome + " Agora";
+    };
+
+    menu.appendChild(link);
+  });
+}
+
+function atualizarRelogio() {
   const now = new Date();
 
   const time = now.toLocaleTimeString('pt-BR', {
-    timeZone: 'America/Sao_Paulo'
+    timeZone: cidadeAtual.timezone
   });
 
   const date = now.toLocaleDateString('pt-BR', {
-    timeZone: 'America/Sao_Paulo',
+    timeZone: cidadeAtual.timezone,
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -86,8 +141,10 @@ function updateClock() {
   document.getElementById('date').textContent = date;
 }
 
-setInterval(updateClock, 1000);
-updateClock();
+setInterval(atualizarRelogio, 1000);
+
+criarMenu();
+atualizarRelogio();
 </script>
 
 </body>
