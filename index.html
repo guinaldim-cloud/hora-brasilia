@@ -1,76 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Hora Atual no Mundo (Relógio Online em Tempo Real)</title>
-  <meta name="description" content="Veja a hora exata em várias cidades do mundo com relógio grande e atualizado em tempo real.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #020617;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-top: 20px;
-    }
-
-    #clock {
-      font-size: 90px;
-      font-weight: bold;
-      margin: 20px 0;
-    }
-
-    #date {
-      font-size: 20px;
-      opacity: 0.8;
-    }
-
-    #menu {
-      margin-top: 30px;
-    }
-
-    #menu button {
-      margin: 5px;
-      padding: 10px 14px;
-      border: none;
-      background: #0ea5e9;
-      color: #000;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    #menu button:hover {
-      background: #38bdf8;
-    }
-
-    .info {
-      max-width: 600px;
-      margin: 40px auto;
-      opacity: 0.8;
-      line-height: 1.5;
-    }
-
-    footer {
-      margin-top: 50px;
-      font-size: 14px;
-      opacity: 0.6;
-    }
-
-    @media (max-width: 600px) {
-      #clock {
-        font-size: 55px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Hora Atual no Mundo - Portal de Relógios</title>
+<meta name="description" content="Veja a hora exata em tempo real em 100 cidades do mundo. Relógio gigante, atualizado segundo a segundo.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; text-align:center; background:#020617; color:white; padding:20px; margin:0; }
+h1 { font-size:32px; margin-bottom:20px; }
+#clock { font-size:90px; font-weight:bold; margin:20px 0; }
+#date { font-size:20px; opacity:0.8; margin-bottom:30px; }
+#menu { display:flex; flex-wrap:wrap; justify-content:center; margin-top:20px; }
+#menu button { margin:5px; padding:10px 15px; border:none; border-radius:6px; background:#0ea5e9; color:#000; cursor:pointer; font-size:14px; }
+#menu button:hover { background:#38bdf8; }
+.info { max-width:700px; margin:40px auto; opacity:0.8; line-height:1.5; }
+footer { margin-top:50px; font-size:14px; opacity:0.6; }
+@media(max-width:600px){#clock{font-size:55px;} #menu button{font-size:12px; padding:8px 12px;}}
+</style>
 </head>
-
 <body>
 
 <h1 id="titulo">Hora em Brasília Agora</h1>
@@ -81,71 +28,145 @@
 <div id="menu"></div>
 
 <div class="info">
-  Veja a hora exata atualizada em tempo real em várias cidades do mundo.
+Veja a hora exata em tempo real em 100 cidades do mundo. Este portal é totalmente atualizado segundo a segundo, e você pode navegar rapidamente entre as cidades clicando nos botões abaixo.
 </div>
 
-<footer>
-  <p>Portal de horários online</p>
-</footer>
+<footer>Portal de horários online</footer>
 
 <script>
+// Lista de 100 cidades com fuso horário
 const cidades = [
-  { nome: "Brasília", tz: "America/Sao_Paulo" },
-  { nome: "São Paulo", tz: "America/Sao_Paulo" },
-  { nome: "Rio de Janeiro", tz: "America/Sao_Paulo" },
-  { nome: "New York", tz: "America/New_York" },
-  { nome: "Los Angeles", tz: "America/Los_Angeles" },
-  { nome: "Londres", tz: "Europe/London" },
-  { nome: "Paris", tz: "Europe/Paris" },
-  { nome: "Berlim", tz: "Europe/Berlin" },
-  { nome: "Lisboa", tz: "Europe/Lisbon" },
-  { nome: "Dubai", tz: "Asia/Dubai" },
-  { nome: "Tóquio", tz: "Asia/Tokyo" },
-  { nome: "Pequim", tz: "Asia/Shanghai" },
-  { nome: "Sydney", tz: "Australia/Sydney" }
+{nome:"Brasília", tz:"America/Sao_Paulo"},
+{nome:"São Paulo", tz:"America/Sao_Paulo"},
+{nome:"Rio de Janeiro", tz:"America/Sao_Paulo"},
+{nome:"Belo Horizonte", tz:"America/Sao_Paulo"},
+{nome:"Curitiba", tz:"America/Sao_Paulo"},
+{nome:"Porto Alegre", tz:"America/Sao_Paulo"},
+{nome:"Salvador", tz:"America/Bahia"},
+{nome:"Recife", tz:"America/Recife"},
+{nome:"Fortaleza", tz:"America/Fortaleza"},
+{nome:"Manaus", tz:"America/Manaus"},
+{nome:"Belém", tz:"America/Belem"},
+{nome:"New York", tz:"America/New_York"},
+{nome:"Los Angeles", tz:"America/Los_Angeles"},
+{nome:"Chicago", tz:"America/Chicago"},
+{nome:"Miami", tz:"America/New_York"},
+{nome:"Toronto", tz:"America/Toronto"},
+{nome:"Londres", tz:"Europe/London"},
+{nome:"Paris", tz:"Europe/Paris"},
+{nome:"Berlim", tz:"Europe/Berlin"},
+{nome:"Madrid", tz:"Europe/Madrid"},
+{nome:"Lisboa", tz:"Europe/Lisbon"},
+{nome:"Roma", tz:"Europe/Rome"},
+{nome:"Amsterdã", tz:"Europe/Amsterdam"},
+{nome:"Viena", tz:"Europe/Vienna"},
+{nome:"Zurique", tz:"Europe/Zurich"},
+{nome:"Dublin", tz:"Europe/Dublin"},
+{nome:"Moscou", tz:"Europe/Moscow"},
+{nome:"Istambul", tz:"Europe/Istanbul"},
+{nome:"Dubai", tz:"Asia/Dubai"},
+{nome:"Tóquio", tz:"Asia/Tokyo"},
+{nome:"Pequim", tz:"Asia/Shanghai"},
+{nome:"Xangai", tz:"Asia/Shanghai"},
+{nome:"Hong Kong", tz:"Asia/Hong_Kong"},
+{nome:"Seul", tz:"Asia/Seoul"},
+{nome:"Bangkok", tz:"Asia/Bangkok"},
+{nome:"Singapura", tz:"Asia/Singapore"},
+{nome:"Sydney", tz:"Australia/Sydney"},
+{nome:"Melbourne", tz:"Australia/Sydney"},
+{nome:"Auckland", tz:"Pacific/Auckland"},
+{nome:"Honolulu", tz:"Pacific/Honolulu"},
+{nome:"Anchorage", tz:"America/Anchorage"},
+{nome:"Denver", tz:"America/Denver"},
+{nome:"Phoenix", tz:"America/Phoenix"},
+{nome:"San Francisco", tz:"America/Los_Angeles"},
+{nome:"Vancouver", tz:"America/Vancouver"},
+{nome:"Montreal", tz:"America/Toronto"},
+{nome:"Cidade do México", tz:"America/Mexico_City"},
+{nome:"Buenos Aires", tz:"America/Argentina/Buenos_Aires"},
+{nome:"Santiago", tz:"America/Santiago"},
+{nome:"Lima", tz:"America/Lima"},
+{nome:"Bogotá", tz:"America/Bogota"},
+{nome:"Caracas", tz:"America/Caracas"},
+{nome:"Johannesburg", tz:"Africa/Johannesburg"},
+{nome:"Cairo", tz:"Africa/Cairo"},
+{nome:"Nairóbi", tz:"Africa/Nairobi"},
+{nome:"Casablanca", tz:"Africa/Casablanca"},
+{nome:"Reunião", tz:"Indian/Reunion"},
+{nome:"Teerã", tz:"Asia/Tehran"},
+{nome:"Riad", tz:"Asia/Riyadh"},
+{nome:"Bagdá", tz:"Asia/Baghdad"},
+{nome:"Kuwait", tz:"Asia/Kuwait"},
+{nome:"Doha", tz:"Asia/Qatar"},
+{nome:"Karachi", tz:"Asia/Karachi"},
+{nome:"Mumbai", tz:"Asia/Kolkata"},
+{nome:"Delhi", tz:"Asia/Kolkata"},
+{nome:"Colombo", tz:"Asia/Colombo"},
+{nome:"Kathmandu", tz:"Asia/Kathmandu"},
+{nome:"Dhaka", tz:"Asia/Dhaka"},
+{nome:"Yangon", tz:"Asia/Yangon"},
+{nome:"Jakarta", tz:"Asia/Jakarta"},
+{nome:"Manila", tz:"Asia/Manila"},
+{nome:"Kuala Lumpur", tz:"Asia/Kuala_Lumpur"},
+{nome:"Hanoi", tz:"Asia/Ho_Chi_Minh"},
+{nome:"Bagdade", tz:"Asia/Baghdad"},
+{nome:"Ammã", tz:"Asia/Amman"},
+{nome:"Beirute", tz:"Asia/Beirut"},
+{nome:"Damasco", tz:"Asia/Damascus"},
+{nome:"Riyadh", tz:"Asia/Riyadh"},
+{nome:"Abu Dhabi", tz:"Asia/Dubai"},
+{nome:"Muscat", tz:"Asia/Muscat"},
+{nome:"Doha", tz:"Asia/Qatar"},
+{nome:"Singapore", tz:"Asia/Singapore"},
+{nome:"Jakarta", tz:"Asia/Jakarta"},
+{nome:"Seul", tz:"Asia/Seoul"},
+{nome:"Tóquio", tz:"Asia/Tokyo"},
+{nome:"Osaka", tz:"Asia/Tokyo"},
+{nome:"Pequim", tz:"Asia/Shanghai"},
+{nome:"Xangai", tz:"Asia/Shanghai"},
+{nome:"Sydney", tz:"Australia/Sydney"},
+{nome:"Melbourne", tz:"Australia/Sydney"},
+{nome:"Auckland", tz:"Pacific/Auckland"},
+{nome:"Honolulu", tz:"Pacific/Honolulu"},
+{nome:"Fiji", tz:"Pacific/Fiji"},
+{nome:"Ilhas Marshall", tz:"Pacific/Majuro"},
+{nome:"Samoa", tz:"Pacific/Apia"},
+{nome:"Taiti", tz:"Pacific/Tahiti"},
+{nome:"Vancouver", tz:"America/Vancouver"},
+{nome:"San Francisco", tz:"America/Los_Angeles"},
+{nome:"Chicago", tz:"America/Chicago"},
+{nome:"Miami", tz:"America/New_York"},
+{nome:"Toronto", tz:"America/Toronto"},
+{nome:"Montreal", tz:"America/Toronto"},
+{nome:"Cidade do México", tz:"America/Mexico_City"},
+{nome:"Buenos Aires", tz:"America/Argentina/Buenos_Aires"},
+{nome:"Santiago", tz:"America/Santiago"},
+{nome:"Lima", tz:"America/Lima"}
 ];
 
 let cidadeAtual = cidades[0];
 
-function criarMenu() {
-  const menu = document.getElementById("menu");
+// Cria o menu de botões
+const menu = document.getElementById('menu');
+cidades.forEach(cidade => {
+  const btn = document.createElement('button');
+  btn.textContent = cidade.nome;
+  btn.onclick = () => {
+    cidadeAtual = cidade;
+    document.getElementById('titulo').textContent = "Hora em " + cidade.nome + " Agora";
+  };
+  menu.appendChild(btn);
+});
 
-  cidades.forEach(cidade => {
-    const btn = document.createElement("button");
-    btn.textContent = cidade.nome;
-
-    btn.onclick = () => {
-      cidadeAtual = cidade;
-      document.getElementById("titulo").textContent =
-        "Hora em " + cidade.nome + " Agora";
-    };
-
-    menu.appendChild(btn);
-  });
-}
-
+// Atualiza o relógio
 function atualizarRelogio() {
   const now = new Date();
-
-  const time = now.toLocaleTimeString("pt-BR", {
-    timeZone: cidadeAtual.tz
-  });
-
-  const date = now.toLocaleDateString("pt-BR", {
-    timeZone: cidadeAtual.tz,
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
-
-  document.getElementById("clock").textContent = time;
-  document.getElementById("date").textContent = date;
+  const time = now.toLocaleTimeString('pt-BR',{timeZone:cidadeAtual.tz});
+  const date = now.toLocaleDateString('pt-BR',{timeZone:cidadeAtual.tz, weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  document.getElementById('clock').textContent = time;
+  document.getElementById('date').textContent = date;
 }
-
-setInterval(atualizarRelogio, 1000);
-
-criarMenu();
+setInterval(atualizarRelogio,1000);
 atualizarRelogio();
 </script>
 
