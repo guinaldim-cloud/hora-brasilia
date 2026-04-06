@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hora Atual no Mundo - Portal de Relógios</title>
-<meta name="description" content="Veja a hora exata em tempo real em 100 cidades do mundo. Relógio gigante, atualizado segundo a segundo.">
+<meta name="description" content="Veja a hora exata em tempo real em 100 cidades do mundo. Relógio gigante atualizado segundo a segundo.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial, sans-serif; text-align:center; background:#020617; color:white; padding:20px; margin:0; }
@@ -21,20 +21,19 @@ footer { margin-top:50px; font-size:14px; opacity:0.6; }
 <body>
 
 <h1 id="titulo">Hora em Brasília Agora</h1>
-
 <div id="clock">--:--:--</div>
 <div id="date"></div>
 
 <div id="menu"></div>
 
 <div class="info">
-Veja a hora exata em tempo real em 100 cidades do mundo. Este portal é totalmente atualizado segundo a segundo, e você pode navegar rapidamente entre as cidades clicando nos botões abaixo.
+Veja a hora exata em tempo real em 100 cidades do mundo. Clique no menu acima para mudar a cidade. Ideal para consultar horários globais rapidamente.
 </div>
 
 <footer>Portal de horários online</footer>
 
 <script>
-// Lista de 100 cidades com fuso horário
+// Lista das cidades com timezone
 const cidades = [
 {nome:"Brasília", tz:"America/Sao_Paulo"},
 {nome:"São Paulo", tz:"America/Sao_Paulo"},
@@ -109,57 +108,57 @@ const cidades = [
 {nome:"Manila", tz:"Asia/Manila"},
 {nome:"Kuala Lumpur", tz:"Asia/Kuala_Lumpur"},
 {nome:"Hanoi", tz:"Asia/Ho_Chi_Minh"},
-{nome:"Bagdade", tz:"Asia/Baghdad"},
 {nome:"Ammã", tz:"Asia/Amman"},
 {nome:"Beirute", tz:"Asia/Beirut"},
 {nome:"Damasco", tz:"Asia/Damascus"},
-{nome:"Riyadh", tz:"Asia/Riyadh"},
 {nome:"Abu Dhabi", tz:"Asia/Dubai"},
 {nome:"Muscat", tz:"Asia/Muscat"},
-{nome:"Doha", tz:"Asia/Qatar"},
-{nome:"Singapore", tz:"Asia/Singapore"},
-{nome:"Jakarta", tz:"Asia/Jakarta"},
-{nome:"Seul", tz:"Asia/Seoul"},
-{nome:"Tóquio", tz:"Asia/Tokyo"},
-{nome:"Osaka", tz:"Asia/Tokyo"},
-{nome:"Pequim", tz:"Asia/Shanghai"},
-{nome:"Xangai", tz:"Asia/Shanghai"},
-{nome:"Sydney", tz:"Australia/Sydney"},
-{nome:"Melbourne", tz:"Australia/Sydney"},
-{nome:"Auckland", tz:"Pacific/Auckland"},
-{nome:"Honolulu", tz:"Pacific/Honolulu"},
-{nome:"Fiji", tz:"Pacific/Fiji"},
-{nome:"Ilhas Marshall", tz:"Pacific/Majuro"},
-{nome:"Samoa", tz:"Pacific/Apia"},
 {nome:"Taiti", tz:"Pacific/Tahiti"},
-{nome:"Vancouver", tz:"America/Vancouver"},
-{nome:"San Francisco", tz:"America/Los_Angeles"},
-{nome:"Chicago", tz:"America/Chicago"},
-{nome:"Miami", tz:"America/New_York"},
-{nome:"Toronto", tz:"America/Toronto"},
-{nome:"Montreal", tz:"America/Toronto"},
-{nome:"Cidade do México", tz:"America/Mexico_City"},
-{nome:"Buenos Aires", tz:"America/Argentina/Buenos_Aires"},
-{nome:"Santiago", tz:"America/Santiago"},
-{nome:"Lima", tz:"America/Lima"}
+{nome:"Fiji", tz:"Pacific/Fiji"},
+{nome:"Samoa", tz:"Pacific/Apia"},
+{nome:"Ilhas Marshall", tz:"Pacific/Majuro"},
+{nome:"Oslo", tz:"Europe/Oslo"},
+{nome:"Helsinki", tz:"Europe/Helsinki"},
+{nome:"Estocolmo", tz:"Europe/Stockholm"},
+{nome:"Copenhague", tz:"Europe/Copenhagen"},
+{nome:"Budapeste", tz:"Europe/Budapest"},
+{nome:"Praga", tz:"Europe/Prague"},
+{nome:"Bruxelas", tz:"Europe/Brussels"},
+{nome:"Warsaw", tz:"Europe/Warsaw"},
+{nome:"Athens", tz:"Europe/Athens"},
+{nome:"Reykjavik", tz:"Atlantic/Reykjavik"},
+{nome:"Lisboa", tz:"Europe/Lisbon"}
 ];
 
 let cidadeAtual = cidades[0];
 
-// Cria o menu de botões
+// Criar menu
 const menu = document.getElementById('menu');
-cidades.forEach(cidade => {
+cidades.forEach(cidade=>{
   const btn = document.createElement('button');
   btn.textContent = cidade.nome;
-  btn.onclick = () => {
+  btn.onclick = ()=>{
     cidadeAtual = cidade;
-    document.getElementById('titulo').textContent = "Hora em " + cidade.nome + " Agora";
+    document.getElementById('titulo').textContent = "Hora em "+cidade.nome+" Agora";
+    document.title = "Hora em "+cidade.nome+" Agora - Portal de Relógios";
+    document.querySelector('meta[name="description"]').setAttribute('content',"Veja a hora exata em "+cidade.nome+" em tempo real. Relógio gigante online.");
+    location.hash = cidade.nome.toLowerCase().replace(/\s/g,'-');
   };
   menu.appendChild(btn);
 });
 
-// Atualiza o relógio
-function atualizarRelogio() {
+// Verifica hash ao carregar página
+function verificarHash(){
+  const hash = location.hash.replace('#','');
+  if(hash){
+    const c = cidades.find(ci=>ci.nome.toLowerCase().replace(/\s/g,'-')===hash);
+    if(c){ cidadeAtual = c; document.getElementById('titulo').textContent = "Hora em "+c.nome+" Agora"; }
+  }
+}
+window.addEventListener('load',verificarHash);
+
+// Atualizar relógio
+function atualizarRelogio(){
   const now = new Date();
   const time = now.toLocaleTimeString('pt-BR',{timeZone:cidadeAtual.tz});
   const date = now.toLocaleDateString('pt-BR',{timeZone:cidadeAtual.tz, weekday:'long', day:'numeric', month:'long', year:'numeric'});
@@ -169,6 +168,15 @@ function atualizarRelogio() {
 setInterval(atualizarRelogio,1000);
 atualizarRelogio();
 </script>
+
+<!-- AdSense pronto -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXX"
+     data-ad-slot="XXXXX"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
 
 </body>
 </html>
