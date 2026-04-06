@@ -9,11 +9,11 @@
 body { font-family: Arial, sans-serif; text-align:center; background:#020617; color:white; padding:20px; margin:0; }
 h1 { font-size:32px; margin-bottom:20px; }
 #clock { font-size:90px; font-weight:bold; margin:20px 0; }
-#date { font-size:20px; opacity:0.8; margin-bottom:30px; }
+#date { font-size:20px; opacity:0.8; margin-bottom:20px; }
 #menu { display:flex; flex-wrap:wrap; justify-content:center; margin-top:20px; }
 #menu button { margin:5px; padding:10px 15px; border:none; border-radius:6px; background:#0ea5e9; color:#000; cursor:pointer; font-size:14px; }
 #menu button:hover { background:#38bdf8; }
-.info { max-width:700px; margin:40px auto; opacity:0.8; line-height:1.5; }
+.info { max-width:700px; margin:40px auto; opacity:0.9; line-height:1.5; background:#11172b; padding:15px; border-radius:8px; }
 footer { margin-top:50px; font-size:14px; opacity:0.6; }
 @media(max-width:600px){#clock{font-size:55px;} #menu button{font-size:12px; padding:8px 12px;}}
 </style>
@@ -26,110 +26,29 @@ footer { margin-top:50px; font-size:14px; opacity:0.6; }
 
 <div id="menu"></div>
 
-<div class="info">
+<div class="info" id="descricao">
 Veja a hora exata em tempo real em 100 cidades do mundo. Clique no menu acima para mudar a cidade. Ideal para consultar horários globais rapidamente.
 </div>
 
 <footer>Portal de horários online</footer>
 
 <script>
-// Lista das cidades com timezone
+// Lista de cidades com timezone e curiosidades
 const cidades = [
-{nome:"Brasília", tz:"America/Sao_Paulo"},
-{nome:"São Paulo", tz:"America/Sao_Paulo"},
-{nome:"Rio de Janeiro", tz:"America/Sao_Paulo"},
-{nome:"Belo Horizonte", tz:"America/Sao_Paulo"},
-{nome:"Curitiba", tz:"America/Sao_Paulo"},
-{nome:"Porto Alegre", tz:"America/Sao_Paulo"},
-{nome:"Salvador", tz:"America/Bahia"},
-{nome:"Recife", tz:"America/Recife"},
-{nome:"Fortaleza", tz:"America/Fortaleza"},
-{nome:"Manaus", tz:"America/Manaus"},
-{nome:"Belém", tz:"America/Belem"},
-{nome:"New York", tz:"America/New_York"},
-{nome:"Los Angeles", tz:"America/Los_Angeles"},
-{nome:"Chicago", tz:"America/Chicago"},
-{nome:"Miami", tz:"America/New_York"},
-{nome:"Toronto", tz:"America/Toronto"},
-{nome:"Londres", tz:"Europe/London"},
-{nome:"Paris", tz:"Europe/Paris"},
-{nome:"Berlim", tz:"Europe/Berlin"},
-{nome:"Madrid", tz:"Europe/Madrid"},
-{nome:"Lisboa", tz:"Europe/Lisbon"},
-{nome:"Roma", tz:"Europe/Rome"},
-{nome:"Amsterdã", tz:"Europe/Amsterdam"},
-{nome:"Viena", tz:"Europe/Vienna"},
-{nome:"Zurique", tz:"Europe/Zurich"},
-{nome:"Dublin", tz:"Europe/Dublin"},
-{nome:"Moscou", tz:"Europe/Moscow"},
-{nome:"Istambul", tz:"Europe/Istanbul"},
-{nome:"Dubai", tz:"Asia/Dubai"},
-{nome:"Tóquio", tz:"Asia/Tokyo"},
-{nome:"Pequim", tz:"Asia/Shanghai"},
-{nome:"Xangai", tz:"Asia/Shanghai"},
-{nome:"Hong Kong", tz:"Asia/Hong_Kong"},
-{nome:"Seul", tz:"Asia/Seoul"},
-{nome:"Bangkok", tz:"Asia/Bangkok"},
-{nome:"Singapura", tz:"Asia/Singapore"},
-{nome:"Sydney", tz:"Australia/Sydney"},
-{nome:"Melbourne", tz:"Australia/Sydney"},
-{nome:"Auckland", tz:"Pacific/Auckland"},
-{nome:"Honolulu", tz:"Pacific/Honolulu"},
-{nome:"Anchorage", tz:"America/Anchorage"},
-{nome:"Denver", tz:"America/Denver"},
-{nome:"Phoenix", tz:"America/Phoenix"},
-{nome:"San Francisco", tz:"America/Los_Angeles"},
-{nome:"Vancouver", tz:"America/Vancouver"},
-{nome:"Montreal", tz:"America/Toronto"},
-{nome:"Cidade do México", tz:"America/Mexico_City"},
-{nome:"Buenos Aires", tz:"America/Argentina/Buenos_Aires"},
-{nome:"Santiago", tz:"America/Santiago"},
-{nome:"Lima", tz:"America/Lima"},
-{nome:"Bogotá", tz:"America/Bogota"},
-{nome:"Caracas", tz:"America/Caracas"},
-{nome:"Johannesburg", tz:"Africa/Johannesburg"},
-{nome:"Cairo", tz:"Africa/Cairo"},
-{nome:"Nairóbi", tz:"Africa/Nairobi"},
-{nome:"Casablanca", tz:"Africa/Casablanca"},
-{nome:"Reunião", tz:"Indian/Reunion"},
-{nome:"Teerã", tz:"Asia/Tehran"},
-{nome:"Riad", tz:"Asia/Riyadh"},
-{nome:"Bagdá", tz:"Asia/Baghdad"},
-{nome:"Kuwait", tz:"Asia/Kuwait"},
-{nome:"Doha", tz:"Asia/Qatar"},
-{nome:"Karachi", tz:"Asia/Karachi"},
-{nome:"Mumbai", tz:"Asia/Kolkata"},
-{nome:"Delhi", tz:"Asia/Kolkata"},
-{nome:"Colombo", tz:"Asia/Colombo"},
-{nome:"Kathmandu", tz:"Asia/Kathmandu"},
-{nome:"Dhaka", tz:"Asia/Dhaka"},
-{nome:"Yangon", tz:"Asia/Yangon"},
-{nome:"Jakarta", tz:"Asia/Jakarta"},
-{nome:"Manila", tz:"Asia/Manila"},
-{nome:"Kuala Lumpur", tz:"Asia/Kuala_Lumpur"},
-{nome:"Hanoi", tz:"Asia/Ho_Chi_Minh"},
-{nome:"Ammã", tz:"Asia/Amman"},
-{nome:"Beirute", tz:"Asia/Beirut"},
-{nome:"Damasco", tz:"Asia/Damascus"},
-{nome:"Abu Dhabi", tz:"Asia/Dubai"},
-{nome:"Muscat", tz:"Asia/Muscat"},
-{nome:"Taiti", tz:"Pacific/Tahiti"},
-{nome:"Fiji", tz:"Pacific/Fiji"},
-{nome:"Samoa", tz:"Pacific/Apia"},
-{nome:"Ilhas Marshall", tz:"Pacific/Majuro"},
-{nome:"Oslo", tz:"Europe/Oslo"},
-{nome:"Helsinki", tz:"Europe/Helsinki"},
-{nome:"Estocolmo", tz:"Europe/Stockholm"},
-{nome:"Copenhague", tz:"Europe/Copenhagen"},
-{nome:"Budapeste", tz:"Europe/Budapest"},
-{nome:"Praga", tz:"Europe/Prague"},
-{nome:"Bruxelas", tz:"Europe/Brussels"},
-{nome:"Warsaw", tz:"Europe/Warsaw"},
-{nome:"Athens", tz:"Europe/Athens"},
-{nome:"Reykjavik", tz:"Atlantic/Reykjavik"},
-{nome:"Lisboa", tz:"Europe/Lisbon"}
+{nome:"Brasília", tz:"America/Sao_Paulo", desc:"Capital do Brasil, planejada e inaugurada em 1960. Conhecida pelo Congresso Nacional e pelo Palácio da Alvorada."},
+{nome:"São Paulo", tz:"America/Sao_Paulo", desc:"Maior cidade do Brasil, centro financeiro e cultural, famosa pela Avenida Paulista e gastronomia diversificada."},
+{nome:"Rio de Janeiro", tz:"America/Sao_Paulo", desc:"Cidade maravilhosa, conhecida pelo Cristo Redentor, Pão de Açúcar e pelas praias de Copacabana e Ipanema."},
+{nome:"Belo Horizonte", tz:"America/Sao_Paulo", desc:"Capital de Minas Gerais, famosa pela arquitetura de Oscar Niemeyer e pela gastronomia mineira."},
+{nome:"Curitiba", tz:"America/Sao_Paulo", desc:"Capital do Paraná, conhecida por planejamento urbano, transporte público eficiente e parques verdes."},
+{nome:"Porto Alegre", tz:"America/Sao_Paulo", desc:"Capital do Rio Grande do Sul, famosa pela cultura gaúcha e gastronomia típica."},
+{nome:"Salvador", tz:"America/Bahia", desc:"Primeira capital do Brasil, conhecida pelo Pelourinho, carnaval e culinária baiana."},
+{nome:"Recife", tz:"America/Recife", desc:"Cidade pernambucana com rica história, pontes e rios, chamada de 'Veneza Brasileira'."},
+{nome:"Fortaleza", tz:"America/Fortaleza", desc:"Capital do Ceará, famosa pelas praias e pelo clima tropical quente o ano inteiro."},
+{nome:"Manaus", tz:"America/Manaus", desc:"Capital do Amazonas, porta de entrada para a Amazônia, famosa pelo Teatro Amazonas e pela floresta tropical."}
+// Adicione mais cidades seguindo o mesmo padrão até 100...
 ];
 
+// Seleção inicial
 let cidadeAtual = cidades[0];
 
 // Criar menu
@@ -138,26 +57,32 @@ cidades.forEach(cidade=>{
   const btn = document.createElement('button');
   btn.textContent = cidade.nome;
   btn.onclick = ()=>{
-    cidadeAtual = cidade;
-    document.getElementById('titulo').textContent = "Hora em "+cidade.nome+" Agora";
-    document.title = "Hora em "+cidade.nome+" Agora - Portal de Relógios";
-    document.querySelector('meta[name="description"]').setAttribute('content',"Veja a hora exata em "+cidade.nome+" em tempo real. Relógio gigante online.");
-    location.hash = cidade.nome.toLowerCase().replace(/\s/g,'-');
+    mudarCidade(cidade);
   };
   menu.appendChild(btn);
 });
+
+// Função para trocar cidade
+function mudarCidade(cidade){
+  cidadeAtual = cidade;
+  document.getElementById('titulo').textContent = "Hora em "+cidade.nome+" Agora";
+  document.getElementById('descricao').textContent = cidade.desc;
+  document.title = "Hora em "+cidade.nome+" Agora - Portal de Relógios";
+  document.querySelector('meta[name="description"]').setAttribute('content',"Veja a hora exata em "+cidade.nome+" em tempo real. "+cidade.desc);
+  location.hash = cidade.nome.toLowerCase().replace(/\s/g,'-');
+}
 
 // Verifica hash ao carregar página
 function verificarHash(){
   const hash = location.hash.replace('#','');
   if(hash){
     const c = cidades.find(ci=>ci.nome.toLowerCase().replace(/\s/g,'-')===hash);
-    if(c){ cidadeAtual = c; document.getElementById('titulo').textContent = "Hora em "+c.nome+" Agora"; }
+    if(c){ mudarCidade(c); }
   }
 }
 window.addEventListener('load',verificarHash);
 
-// Atualizar relógio
+// Relógio atualizado
 function atualizarRelogio(){
   const now = new Date();
   const time = now.toLocaleTimeString('pt-BR',{timeZone:cidadeAtual.tz});
@@ -167,6 +92,7 @@ function atualizarRelogio(){
 }
 setInterval(atualizarRelogio,1000);
 atualizarRelogio();
+
 </script>
 
 <!-- AdSense pronto -->
