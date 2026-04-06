@@ -1,151 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Hora em Brasília Agora (Relógio Online em Tempo Real)</title>
+  <meta name="description" content="Veja a hora exata em Brasília com relógio grande e atualização em tempo real. Simples, rápido e preciso.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Relógio Online com Timer e Cronômetro</title>
-<meta name="description" content="Relógio online grátis com hora exata, cronômetro, timer e modo tela cheia.">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #020617;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
 
-<!-- AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-     data-ad-client="ca-pub-XXXXXXXXXXXX"></script>
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
 
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#0b1f3a;
-  color:white;
-  text-align:center;
-}
+    #clock {
+      font-size: 110px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
 
-.container{
-  padding:20px;
-}
+    #date {
+      margin-top: 10px;
+      font-size: 20px;
+      opacity: 0.7;
+    }
 
-.clock{
-  font-size:80px;
-  margin-top:40px;
-}
+    .info {
+      max-width: 600px;
+      margin-top: 40px;
+      font-size: 16px;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
 
-button{
-  margin:10px;
-  padding:10px 20px;
-  border:none;
-  border-radius:6px;
-  background:#08172b;
-  color:white;
-  cursor:pointer;
-}
-
-input{
-  padding:10px;
-  width:80px;
-  text-align:center;
-}
-</style>
+    @media (max-width: 600px) {
+      #clock {
+        font-size: 60px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>Relógio Online</h1>
+<h1>Hora em Brasília Agora</h1>
 
-  <div class="clock" id="clock">00:00:00</div>
+<div id="clock">--:--:--</div>
+<div id="date"></div>
 
-  <button onclick="fullscreen()">Tela Cheia</button>
-
-  <h2>Timer</h2>
-  <input type="number" id="minutes" placeholder="Min">
-  <button onclick="startTimer()">Iniciar</button>
-  <div id="timerDisplay">00:00</div>
-
-  <h2>Cronômetro</h2>
-  <button onclick="startStopwatch()">Start</button>
-  <button onclick="resetStopwatch()">Reset</button>
-  <div id="stopwatch">00:00:00</div>
-
-  <!-- ANÚNCIO -->
-  <div style="margin-top:40px;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXXXX"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-  </div>
+<div class="info">
+  A hora atual em Brasília (Brasil) é atualizada automaticamente em tempo real,
+  com base no horário oficial (UTC -3).
 </div>
 
 <script>
-// RELÓGIO
-function updateClock(){
+function updateClock() {
   const now = new Date();
-  const time = now.toLocaleTimeString();
-  document.getElementById("clock").textContent = time;
+
+  const time = now.toLocaleTimeString('pt-BR', {
+    timeZone: 'America/Sao_Paulo'
+  });
+
+  const date = now.toLocaleDateString('pt-BR', {
+    timeZone: 'America/Sao_Paulo',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  document.getElementById('clock').textContent = time;
+  document.getElementById('date').textContent = date;
 }
-setInterval(updateClock,1000);
+
+setInterval(updateClock, 1000);
 updateClock();
-
-// FULLSCREEN
-function fullscreen(){
-  if(!document.fullscreenElement){
-    document.documentElement.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-}
-
-// TIMER
-let timerInterval;
-function startTimer(){
-  let minutes = document.getElementById("minutes").value || 0;
-  let time = minutes * 60;
-
-  clearInterval(timerInterval);
-
-  timerInterval = setInterval(()=>{
-    let min = Math.floor(time / 60);
-    let sec = time % 60;
-
-    document.getElementById("timerDisplay").textContent =
-      `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
-
-    time--;
-
-    if(time < 0){
-      clearInterval(timerInterval);
-      alert("Tempo acabou!");
-    }
-  },1000);
-}
-
-// CRONÔMETRO
-let swTime = 0;
-let swInterval;
-
-function startStopwatch(){
-  clearInterval(swInterval);
-  swInterval = setInterval(()=>{
-    swTime++;
-
-    let h = Math.floor(swTime/3600);
-    let m = Math.floor((swTime%3600)/60);
-    let s = swTime%60;
-
-    document.getElementById("stopwatch").textContent =
-      `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  },1000);
-}
-
-function resetStopwatch(){
-  clearInterval(swInterval);
-  swTime = 0;
-  document.getElementById("stopwatch").textContent = "00:00:00";
-}
-
-// ADS
-(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 </body>
